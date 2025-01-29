@@ -27,13 +27,16 @@ const Select: React.FC<SelectProps> = ({
     primaryColor = DEFAULT_THEME,
     formatGroupLabel = null,
     formatOptionLabel = null,
-    classNames
+    classNames,
+    scrollableContainer = null,
+    closeOnSelect = false
 }) => {
     const [open, setOpen] = useState<boolean>(menuIsOpen);
     const [list, setList] = useState<ListOption>(options);
     const [inputValue, setInputValue] = useState<string>("");
     const ref = useRef<HTMLDivElement>(null);
     const searchBoxRef = useRef<HTMLInputElement>(null);
+	const [showOptionAboveTheSelect, setShowOptionAboveTheSelect] = useState<boolean>(false);
 
     useEffect(() => {
         const formatItem = (item: Option) => {
@@ -95,7 +98,7 @@ const Select: React.FC<SelectProps> = ({
     const handleValueChange = useCallback(
         (selected: Option) => {
             function update() {
-                if (!isMultiple && !Array.isArray(value)) {
+                if ((!isMultiple && !Array.isArray(value)) || closeOnSelect) {
                     closeDropDown();
                     onChange(selected);
                 }
@@ -166,6 +169,22 @@ const Select: React.FC<SelectProps> = ({
         [classNames, isDisabled]
     );
 
+    const handleScroll = useCallback(() => {
+        if (ref.current) {
+            const { top } = ref.current.getBoundingClientRect();
+            // check if the component is on the bottom half of the page or on the top half
+            setShowOptionAboveTheSelect(top > window.innerHeight / 2);
+        }
+    }, [ref]);
+
+    useEffect(handleScroll, [ref]);
+
+    useEffect(() => {
+        const _scrollableContainer = scrollableContainer || window.document;
+        _scrollableContainer.addEventListener('scroll', handleScroll);
+        return () => _scrollableContainer.removeEventListener('scroll', handleScroll);
+    }, [scrollableContainer]);
+ 
     return (
         <SelectProvider
             otherData={{
@@ -266,9 +285,10 @@ const Select: React.FC<SelectProps> = ({
                 {open && !isDisabled && (
                     <div
                         className={
-                            classNames?.menu
+                            `${classNames?.menu
                                 ? classNames.menu
-                                : "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700"
+                                : "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700"} 
+                                ${showOptionAboveTheSelect ? 'top-auto bottom-[44px]' : ''}`
                         }
                     >
                         {isSearchable && (
