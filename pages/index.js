@@ -60,7 +60,8 @@ const SELECT_OPTIONS = [
     "isDisabled",
     "loading",
     "isGroupOption",
-    "closeOnSelect"];
+    "closeOnSelect"
+];
 
 const printAlertContent = (element, value) => {
     const printText = (text, value) =>
@@ -255,7 +256,7 @@ const Home = () => {
                                     isClearable={isClearable}
                                     isSearchable={isSearchable}
                                     isMultiple={isMultiple}
-									closeOnSelect={closeOnSelect}
+                                    closeOnSelect={closeOnSelect}
                                     /*formatGroupLabel={(data) => (
                                         <div className={`py-2 text-xs flex items-center justify-between`}>
                                             <span className="font-bold">{data.label}</span>
@@ -299,7 +300,7 @@ const Home = () => {
                                             {printAlertContent("isDisabled", isDisabled)}
                                             {printAlertContent("loading", loading)}
                                             {printAlertContent("isGroupOption", isGroupOption)}
-											{printAlertContent("closeOnSelect", closeOnSelect)}
+                                            {printAlertContent("closeOnSelect", closeOnSelect)}
                                         </Alert>
                                     </div>
                                 )}

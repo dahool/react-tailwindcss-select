@@ -36,7 +36,7 @@ const Select: React.FC<SelectProps> = ({
     const [inputValue, setInputValue] = useState<string>("");
     const ref = useRef<HTMLDivElement>(null);
     const searchBoxRef = useRef<HTMLInputElement>(null);
-	const [showOptionAboveTheSelect, setShowOptionAboveTheSelect] = useState<boolean>(false);
+    const [showOptionAboveTheSelect, setShowOptionAboveTheSelect] = useState<boolean>(false);
 
     useEffect(() => {
         const formatItem = (item: Option) => {
@@ -181,10 +181,10 @@ const Select: React.FC<SelectProps> = ({
 
     useEffect(() => {
         const _scrollableContainer = scrollableContainer || window.document;
-        _scrollableContainer.addEventListener('scroll', handleScroll);
-        return () => _scrollableContainer.removeEventListener('scroll', handleScroll);
+        _scrollableContainer.addEventListener("scroll", handleScroll);
+        return () => _scrollableContainer.removeEventListener("scroll", handleScroll);
     }, [scrollableContainer]);
- 
+
     return (
         <SelectProvider
             otherData={{
@@ -284,12 +284,12 @@ const Select: React.FC<SelectProps> = ({
 
                 {open && !isDisabled && (
                     <div
-                        className={
-                            `${classNames?.menu
+                        className={`${
+                            classNames?.menu
                                 ? classNames.menu
-                                : "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700"} 
-                                ${showOptionAboveTheSelect ? 'top-auto bottom-[44px]' : ''}`
-                        }
+                                : "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700"
+                        } 
+                                ${showOptionAboveTheSelect ? "top-auto bottom-[44px]" : ""}`}
                     >
                         {isSearchable && (
                             <SearchInput

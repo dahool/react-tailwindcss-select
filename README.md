@@ -1,3 +1,8 @@
+## NOTICE
+
+<p>Since the project unmaintained, I created my own fork, merged some pull requests from the original repository and I'm publishing it in my own space for personal use</p>
+<p>All credits to the original author <a href="https://github.com/onesine/react-tailwindcss-select">onesine</a></p>
+
 <h1 align="center" style="border-bottom: 0 white">
     📦 React tailwindcss select
 </h1>
